@@ -42,7 +42,7 @@ type
       ## set a menu entry as the default
       ## even though there may be a variable number
       ## of entries before it.
-    saveDefault* : string ## GRUB_SAVEDEFAULT
+    saveDefault* : bool ## GRUB_SAVEDEFAULT
       ## If this option is set to 'true', then, when an entry is selected,
       ## save it as a new default entry for use by future runs of GRUB.
       ## This is only useful if 'GRUB_DEFAULT=saved';
@@ -50,14 +50,14 @@ type
       ## without this option, in conjunction with grub-set-default.
       ## Unset by default. This option relies on the environment block,
       ## which may not be available in all situations (see Environment block).
-    timeout* : string ## GRUB_TIMEOUT
+    timeout* : int ## GRUB_TIMEOUT
       ## Boot the default entry this many seconds after the menu
       ## is displayed, unless a key is pressed.
       ## The default is '5'. Set to '0' to boot immediately
       ## without displaying the menu, or to '-1' to wait indefinitely.
       ## If 'GRUB_TIMEOUT_STYLE' is set to 'countdown' or 'hidden',
       ## the timeout is instead counted before the menu is displayed.
-    timeoutStyle* : string ## GRUB_TIMEOUT_STYLE
+    timeoutStyle* : string ## GRUB_TIMEOUT_STYLE #TODO: ENUM
       ## If this option is unset or set to 'menu',
       ## then GRUB will display the menu and then wait for
       ## the timeout set by 'GRUB_TIMEOUT'
@@ -78,11 +78,12 @@ type
     timeoutStyleButton* : string ## GRUB_TIMEOUT_STYLE_BUTTON
     buttonCmosAddress* : string ## GRUB_BUTTON_CMOS_ADDRESS
       ## Variants of the corresponding variables without the '_BUTTON' suffix,
-      ## used to support vendor-specific power buttons. See Vendor power-on keys. 
+      ## used to support vendor-specific power buttons.
+      ## See Vendor power-on keys.
     distributor* : string ## GRUB_DISTRIBUTOR
       ## Set by distributors of GRUB to their identifying name.
       ## This is used to generate more informative menu entry titles. 
-    terminalInput* : string ## GRUB_TERMINAL_INPUT
+    terminalInput* : seq[string] ## GRUB_TERMINAL_INPUT #TODO: ENUM
       ## Select the terminal input device.
       ## You may select multiple devices here,
       ## separated by spaces.Valid terminal input names
@@ -95,7 +96,7 @@ type
       ## 'usb_keyboard' (USB keyboard using the HID Boot Protocol,
       ## for cases where the firmware does not handle this).
       ## The default is to use the platform's native terminal input.
-    terminalOutput* : string ## GRUB_TERMINAL_OUTPUT
+    terminalOutput* : seq[string] ## GRUB_TERMINAL_OUTPUT #TODO: ENUM
       ## Select the terminal output device.
       ## You may select multiple devices here, separated by spaces.
       ## Valid terminal output names depend on the platform,
@@ -107,7 +108,7 @@ type
       ## 'mda_text' (MDA text output),
       ## 'morse' (Morse-coding using system beeper) or
       ## 'spkmodem' (simple data protocol using system speaker).
-    terminal* : string ## GRUB_TERMINAL
+    terminal* : string ## GRUB_TERMINAL #TODO: ENUM
       ## If this option is set, it overrides both
       ## 'GRUB_TERMINAL_INPUT' and 'GRUB_TERMINAL_OUTPUT'
       ## to the same value. 
@@ -115,31 +116,31 @@ type
       ## A command to configure the serial port
       ## when using the serial console.
       ## See serial. Defaults to 'serial'.
-    cmdLineLinux* : string ## GRUB_CMDLINE_LINUX
+    cmdLineLinux* : seq[string] ## GRUB_CMDLINE_LINUX
       ## Command-line arguments to add to menu entries for the Linux kernel.
-    cmdLineLinuxDefault* : string ## GRUB_CMDLINE_LINUX_DEFAULT
+    cmdLineLinuxDefault* : seq[string] ## GRUB_CMDLINE_LINUX_DEFAULT
       ## Unless 'GRUB_DISABLE_RECOVERY' is set to 'true',
       ## two menu entries will be generated for each Linux kernel:
       ## one default entry and one entry for recovery mode.
       ## This option lists command-line arguments to
       ## add only to the default menu entry,
       ## after those listed in 'GRUB_CMDLINE_LINUX'.
-    cmdLineNetBSD* : string ## GRUB_CMDLINE_NETBSD
-    cmdLineNetBsdDefault* : string ## GRUB_CMDLINE_NETBSD_DEFAULT
+    cmdLineNetBSD* : seq[string] ## GRUB_CMDLINE_NETBSD
+    cmdLineNetBsdDefault* : seq[string] ## GRUB_CMDLINE_NETBSD_DEFAULT
       ## As 'GRUB_CMDLINE_LINUX' and 'GRUB_CMDLINE_LINUX_DEFAULT', but for NetBSD.
-    cmdLineGnuMach* : string ## GRUB_CMDLINE_GNUMACH
+    cmdLineGnuMach* : seq[string] ## GRUB_CMDLINE_GNUMACH
       ## As 'GRUB_CMDLINE_LINUX', but for GNU Mach. 
-    cmdLineXen* : string ## GRUB_CMDLINE_XEN
-    cmdLineXenDefault* : string ## GRUB_CMDLINE_XEN_DEFAULT
+    cmdLineXen* : seq[string] ## GRUB_CMDLINE_XEN
+    cmdLineXenDefault* : seq[string] ## GRUB_CMDLINE_XEN_DEFAULT
       ## The values of these options are passed to
       ## Xen hypervisor Xen menu entries,
       ## for all respectively normal entries.
-    cmdLineLinuxXenReplace* : string ## GRUB_CMDLINE_LINUX_XEN_REPLACE
-    cmdLineLinuxXenReplaceDefault* : string ## GRUB_CMDLINE_LINUX_XEN_REPLACE_DEFAULT
+    cmdLineLinuxXenReplace* : seq[string] ## GRUB_CMDLINE_LINUX_XEN_REPLACE
+    cmdLineLinuxXenReplaceDefault* : seq[string] ## GRUB_CMDLINE_LINUX_XEN_REPLACE_DEFAULT
       ## The values of these options replace the values of 'GRUB_CMDLINE_LINUX' and
       ## 'GRUB_CMDLINE_LINUX_DEFAULT' for Linux and Xen menu entries.
-    earlyInitrdLinuxCustom* : string ## GRUB_EARLY_INITRD_LINUX_CUSTOM
-    earlyInitrdLinuxStock* : string ## GRUB_EARLY_INITRD_LINUX_STOCK
+    earlyInitrdLinuxCustom* : seq[string] ## GRUB_EARLY_INITRD_LINUX_CUSTOM
+    earlyInitrdLinuxStock* : seq[string] ## GRUB_EARLY_INITRD_LINUX_STOCK
       ## List of space-separated early initrd images to be loaded from '/boot'.
       ## This is for loading things like CPU microcode, firmware,
       ## ACPI tables, crypto keys, and so on.
@@ -150,7 +151,7 @@ type
       ## It should not be modified without understanding the consequences.
       ## They will be loaded first.
       ## 'GRUB_EARLY_INITRD_LINUX_CUSTOM' is for your custom created images
-    disableLinuxUUID* : string ## GRUB_DISABLE_LINUX_UUID
+    disableLinuxUUID* : bool ## GRUB_DISABLE_LINUX_UUID
       ## Normally, grub-mkconfig will generate menu entries
       ## that use universally-unique identifiers (UUIDs) to
       ## identify the root filesystem to the Linux kernel,
@@ -158,7 +159,7 @@ type
       ## This is usually more reliable, but in some cases
       ## it may not be appropriate.
       ## To disable the use of UUIDs, set this option to 'true'.
-    disableLinuxPartUUID* : string ## GRUB_DISABLE_LINUX_PARTUUID
+    disableLinuxPartUUID* : bool ## GRUB_DISABLE_LINUX_PARTUUID
       ## If grub-mkconfig cannot identify the root filesystem via
       ## its universally-unique indentifier (UUID),
       ## grub-mkconfig can use the UUID of the partition containing the
@@ -171,9 +172,9 @@ type
       ## 2.6.37 (3.10 for systems using the MSDOS partition scheme) or newer.
       ## This option defaults to 'true'.
       ## To enable the use of partition UUIDs, set this option to 'false'.
-    disableRecovery* : string ## GRUB_DISABLE_RECOVERY
+    disableRecovery* : bool ## GRUB_DISABLE_RECOVERY
       ## If this option is set to 'true', disable the generation of recovery mode menu entries.
-    disableUUID* : string ## GRUB_DISABLE_UUID
+    disableUUID* : bool ## GRUB_DISABLE_UUID
       ## Normally, grub-mkconfig will generate menu entries that use
       ## universally-unique identifiers (UUIDs) to identify various filesystems
       ## to search for files.
@@ -182,7 +183,7 @@ type
       ## Setting this option to 'true', will also set the options
       ## 'GRUB_DISABLE_LINUX_UUID' and 'GRUB_DISABLE_LINUX_PARTUUID' to 'true',
       ## unless they have been explicilty set to 'false'.
-    videoBackend* : string ## GRUB_VIDEO_BACKEND
+    videoBackend* : seq[string] ## GRUB_VIDEO_BACKEND
       ## If graphical video support is required,
       ## either because the 'gfxterm' graphical terminal is in use or
       ## because 'GRUB_GFXPAYLOAD_LINUX' is set, then
@@ -196,6 +197,18 @@ type
       ## supports via VESA BIOS Extensions (VBE), so
       ## for example native LCD panel resolutions may not be available.
       ## The default is 'auto', which tries to select a preferred resolution.
+      ##
+      ## If this variable is set, it sets the resolution used on the 'gfxterm' graphical terminal.
+      ## Note that you can only use modes which your graphics card supports via VESA BIOS Extensions (VBE), so
+      ## for example native LCD panel resolutions may not be available. The default is 'auto',
+      ## which selects a platform-specific default that should look reasonable.
+      ## Supported modes can be listed by 'videoinfo' command in GRUB.
+      ## The resolution may be specified as a sequence of one or more modes,
+      ## separated by commas (',') or semicolons (';');
+      ## each will be tried in turn until one is found.
+      ## Each mode should be either 'auto', 'widthxheight', or 'widthxheightxdepth'.
+      ##
+      ## https://www.gnu.org/software/grub/manual/grub/grub.html#gfxmode
     background* : string ## GRUB_BACKGROUND
       ## Set a background image for use with the 'gfxterm' graphical terminal.
       ## The value of this option must be a file readable by GRUB at boot time, and
@@ -215,7 +228,28 @@ type
       ## particularly during the early part of the boot sequence.
       ## If you have problems, set this option to 'text' and
       ## GRUB will tell Linux to boot in normal text mode.
-    disableOsProber* : string ## GRUB_DISABLE_OS_PROBER
+      ##
+      ## If this variable is set,
+      ## it controls the video mode in which the Linux kernel starts up,
+      ## replacing the 'vga=' boot option (see linux).
+      ## It may be set to 'text' to force the Linux kernel to
+      ## boot in normal text mode,
+      ## 'keep' to preserve the graphics mode set using 'gfxmode', or
+      ## any of the permitted values for 'gfxmode' to set a
+      ## particular graphics mode (see gfxmode).Depending on your kernel,
+      ## your distribution, your graphics card, and
+      ## the phase of the moon, note that using this option may cause
+      ## GNU/Linux to suffer from various display problems,
+      ## particularly during the early part of the boot sequence.
+      ## If you have problems, set this variable to 'text' and
+      ## GRUB will tell Linux to boot in normal text mode.
+      ## The default is platform-specific.
+      ## On platforms with a native text mode
+      ## (such as PC BIOS platforms), the default is 'text'.
+      ## Otherwise the default may be 'auto' or a specific video mode.
+      ##
+      ## https://www.gnu.org/software/grub/manual/grub/grub.html#gfxpayload
+    disableOsProber* : bool ## GRUB_DISABLE_OS_PROBER
       ## The grub-mkconfig has a feature to use the external
       ## os-prober program to discover other operating systems
       ## installed on the same machine and
@@ -226,11 +260,11 @@ type
       ## is a potential attack vector.
       ## Set this option to 'false' to
       ## enable this feature in the grub-mkconfig command.
-    osProberSkipList* : string ## GRUB_OS_PROBER_SKIP_LIST
+    osProberSkipList* : seq[string] ## GRUB_OS_PROBER_SKIP_LIST
       ## List of space-separated FS UUIDs of
       ## filesystems to be ignored from os-prober output.
       ## For efi chainloaders it's <UUID>@<EFI FILE>
-    disableSubmenu* : string ## GRUB_DISABLE_SUBMENU
+    disableSubmenu* : bool ## GRUB_DISABLE_SUBMENU
       ## Normally, grub-mkconfig will generate top level menu entry
       ## for the kernel with highest version number and
       ## put all other found kernels or alternative menu entries
@@ -244,7 +278,10 @@ type
       ## 'default' (see default) environment variables
       ## as well as saved default entry using grub-set-default and
       ## value used with grub-reboot.
-    enableCryptodisk* : string ## GRUB_ENABLE_CRYPTODISK
+      ##
+      ## https://www.gnu.org/software/grub/manual/grub/grub.html#fallback
+      ## https://www.gnu.org/software/grub/manual/grub/grub.html#default
+    enableCryptodisk* : char ## GRUB_ENABLE_CRYPTODISK
       ## If set to 'y', grub-mkconfig and grub-install will check for
       ## encrypted disks and
       ## generate additional commands needed to access them during boot.
@@ -254,17 +291,59 @@ type
       ## Play a tune on the speaker when GRUB starts.
       ## This is particularly useful for users unable to see the screen.
       ## The value of this option is passed directly to play.
-    badRAM* : string ## GRUB_BADRAM
+      ##
+      ## If the argument is a file name (see File name syntax),
+      ## play the tune recorded in it.
+      ## The file format is first the tempo as an
+      ## unsigned 32bit little-endian number, then
+      ## pairs of unsigned 16bit little-endian numbers for pitch and
+      ## duration pairs.
+      ## If the arguments are a series of numbers,
+      ## play the inline tune.
+      ## The tempo is the base for all note durations.
+      ## 60 gives a 1-second base, 120 gives a half-second base, etc.
+      ## Pitches are Hz.
+      ## Set pitch to 0 to produce a rest.
+      ##
+      ## https://www.gnu.org/software/grub/manual/grub/grub.html#play
+    badRAM* : seq[string] ## GRUB_BADRAM
       ## If this option is set, GRUB will issue a
       ## badram command to filter out specified regions of RAM.
-    preloadModules* : string ## GRUB_PRELOAD_MODULES
+      ##
+      ## This command notifies the memory manager that
+      ## specified regions of RAM ought to be filtered out
+      ## (usually, because they're damaged).
+      ## This remains in effect after a payload kernel has been
+      ## loaded by GRUB, as long as the loaded kernel obtains
+      ## its memory map from GRUB. Kernels that support this include Linux,
+      ## GNU Mach, the kernel of FreeBSD and Multiboot kernels in general.
+      ## Syntax is the same as provided by the Memtest86+ utility:
+      ## a list of address/mask pairs.
+      ## Given a page-aligned address and a base address / mask pair,
+      ## if all the bits of the page-aligned address that are
+      ## enabled by the mask match with the base address,
+      ## it means this page is to be filtered.
+      ## This syntax makes it easy to represent patterns that are
+      ## often result of memory damage,
+      ## due to physical distribution of memory cells.
+      ## The command is similar to cutmem command.
+      ## Note: The command is not allowed when lockdown is
+      ## enforced (see Lockdown).
+      ## This prevents removing EFI memory regions to
+      ## potentially subvert the security mechanisms
+      ## provided by the UEFI secure boot.
+      ##
+      ## https://www.gnu.org/software/grub/manual/grub/grub.html#badram
+      ## https://www.gnu.org/software/grub/manual/grub/grub.html#Lockdown
+    preloadModules* : seq[string] ## GRUB_PRELOAD_MODULES
       ## This option may be set to a list of GRUB module names separated by spaces.
       ## Each module will be loaded as early as possible, at the start of grub.cfg.
-    ##
-    ## The following options are still accepted for
-    ## compatibility with existing configurations, but have better replacements
-    ##
-    hiddenTimeout* : string ## GRUB_HIDDEN_TIMEOUT
+    ##################################################
+    ## The following options are still accepted for ##
+    ## compatibility with existing configurations,  ##
+    ## but have better replacements.                ##
+    ##################################################
+    hiddenTimeout* : int ## GRUB_HIDDEN_TIMEOUT
       ## Wait this many seconds before displaying the menu.
       ## If ESC or F4 are pressed, or
       ## SHIFT is held down during that time,
@@ -281,7 +360,7 @@ type
       ## This option is unset by default, and
       ## is deprecated in favour of the less confusing
       ## 'GRUB_TIMEOUT_STYLE=countdown' or 'GRUB_TIMEOUT_STYLE=hidden'.
-    hiddenTimeoutQuiet* : string ## GRUB_HIDDEN_TIMEOUT_QUIET
+    hiddenTimeoutQuiet* : bool ## GRUB_HIDDEN_TIMEOUT_QUIET
       ## In conjunction with 'GRUB_HIDDEN_TIMEOUT', set this to 'true' to
       ## suppress the verbose countdown while waiting for a key to be pressed
       ## before displaying the menu.This option is unset by default, and
@@ -292,3 +371,20 @@ type
       ## This option is unset by default, and
       ## is deprecated in favour of the less confusing
       ## 'GRUB_TIMEOUT_STYLE=countdown' or 'GRUB_TIMEOUT_STYLE=hidden'.
+      ##
+      ## Some laptop vendors provide an additional power-on button which
+      ## boots another OS. GRUB supports such buttons with the
+      ## 'GRUB_TIMEOUT_BUTTON',
+      ## 'GRUB_TIMEOUT_STYLE_BUTTON',
+      ## 'GRUB_DEFAULT_BUTTON', and
+      ## 'GRUB_BUTTON_CMOS_ADDRESS'
+      ## variables in default/grub (see Simple configuration).
+      ## 'GRUB_TIMEOUT_BUTTON',
+      ## 'GRUB_TIMEOUT_STYLE_BUTTON', and
+      ## 'GRUB_DEFAULT_BUTTON' are used instead of the
+      ## corresponding variables without the '_BUTTON' suffix when
+      ## powered on using the special button.
+      ## 'GRUB_BUTTON_CMOS_ADDRESS' is vendor-specific and
+      ## partially model-specific.
+      ##
+      ## https://www.gnu.org/software/grub/manual/grub/grub.html#Vendor-power_002don-keys
