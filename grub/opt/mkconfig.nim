@@ -1,17 +1,33 @@
-## https://www.gnu.org/software/grub/manual/grub/grub.html#Simple-configuration
+##[
+
+  The program grub-mkconfig (see Invoking grub-mkconfig) generates grub.cfg files suitable for most cases.
+  It is suitable for use when upgrading a distribution, and will discover available kernels and attempt to
+  generate menu entries for them.grub-mkconfig does have some limitations.
+  While adding extra custom menu entries to the end of the list can be done by editing /etc/grub.d/40_custom or
+  creating /boot/grub/custom.cfg, changing the order of menu entries or changing their titles
+  may require making complex changes to shell scripts stored in /etc/grub.d/. This may be improved in the future.
+  In the meantime, those who feel that it would be easier to write grub.cfg directly are encouraged to
+  do so (see Booting, and Shell-like scripting), and
+  to disable any system provided by their distribution to automatically run grub-mkconfig.
+
+
+  Visit the official GRUB documentation for more information.
+
+  https://www.gnu.org/software/grub/manual/grub/grub.html#Simple-configuration
+]##
 
 type
   MkConfig * = ref object
-    ## The file /etc/default/grub controls the operation of grub-mkconfig.
+    ## The file `/etc/default/grub` controls the operation of `grub-mkconfig`.
     ## It is sourced by a shell script, and
     ## so must be valid POSIX shell input;
     ## normally, it will just be a sequence of 'KEY=value' lines, but
     ## if the value contains spaces or other special characters
     ## then it must be quoted.
     ##
-    ## For more detailed customisation of grub-mkconfig's output,
+    ## For more detailed customisation of `grub-mkconfig`'s output,
     ## you may edit the scripts in /etc/grub.d directly.
-    ## /etc/grub.d/40_custom is particularly useful for
+    ## `/etc/grub.d/40_custom` is particularly useful for
     ## adding entire custom menu entries;
     ## simply type the menu entries you want to
     ## add at the end of that file, making sure to
@@ -276,6 +292,3 @@ type
       ## This option is unset by default, and
       ## is deprecated in favour of the less confusing
       ## 'GRUB_TIMEOUT_STYLE=countdown' or 'GRUB_TIMEOUT_STYLE=hidden'.
-
-
-
