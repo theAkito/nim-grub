@@ -1,34 +1,36 @@
-[![Nimble](https://raw.githubusercontent.com/yglukhov/nimble-tag/master/nimble.png)](https://nimble.directory/pkg/nimpackage)
+[![Nimble](https://raw.githubusercontent.com/yglukhov/nimble-tag/master/nimble.png)](https://nimble.directory/pkg/grub)
 
-[![Source](https://img.shields.io/badge/project-source-2a2f33?style=plastic)](https://github.com/theAkito/nimpackage)
+[![Source](https://img.shields.io/badge/project-source-2a2f33?style=plastic)](https://github.com/theAkito/nim-grub)
 [![Language](https://img.shields.io/badge/language-Nim-orange.svg?style=plastic)](https://nim-lang.org/)
 
-![Last Commit](https://img.shields.io/github/last-commit/theAkito/nimpackage?style=plastic)
+![Last Commit](https://img.shields.io/github/last-commit/theAkito/nim-grub?style=plastic)
 
 [![GitHub](https://img.shields.io/badge/license-GPL--3.0-informational?style=plastic)](https://www.gnu.org/licenses/gpl-3.0.txt)
 [![Liberapay patrons](https://img.shields.io/liberapay/patrons/Akito?style=plastic)](https://liberapay.com/Akito/)
 
 ## What
-This is a base template for App projects written in Nim.
+GRUB interface library for your Nim project.
 
 ## Why
-Allows kickstarting new projects, without fiddling around with metadata basics.
+WIP
 
 ## How
-Select this is a template, when creating a new Git repository through a Git WebUI.
+WIP
 
 ## Where
-Git.
+WIP
 
 ## Goals
-* Performance
+* Reliability
+* Universality
+* Compatibility
 
 ## Project Status
 Before Pre-Alpha.
 Unstable API.
 
 ## TODO
-* Always improve
+* Initialise this README
 
 ## License
 Copyright © 2022  Akito <the@akito.ooo>
