@@ -20,3 +20,4 @@ htmldocs/
 # Binaries and Temp Files
 /grub_prod
 /grub_debug
+/grub/generator/menu
