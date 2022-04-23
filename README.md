@@ -31,6 +31,19 @@ Unstable API.
 
 ## TODO
 * Initialise this README
+* Find operatings systems for multi-boot
+* Support Debian, Ubuntu, etc.
+* Support Fedora, CentOS, etc.
+* Support FreeBSD, OpenBSD, etc.
+* Support Windows XP, 7, 10, 11
+* Add ability to provide custom `grub.cfg`
+* Add ability to provide custom `menu.lst`
+* Add ability to provide custom configuration file
+* Add initialisation, e.g. `GRUB_DISABLE_OS_PROBER=true`
+* Manage GRUB Backups in pre-install & post-install scripts
+* Provide `.deb` package
+* Provide `.rpm` package
+* Provide other packages
 
 ## License
 Copyright © 2022  Akito <the@akito.ooo>
