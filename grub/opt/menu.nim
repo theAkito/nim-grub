@@ -13,9 +13,27 @@
   https://www.gnu.org/software/grub/manual/grub/grub.html#Menu_002dspecific-commands
 ]##
 
+import
+  command,
+  std/[
+    options
+  ]
+
 type
+  MenuComponent * = ref object of RootObj
+    class* : Option[seq[string]] ## May be used any number of times to group menu entries into classes. Menu themes may display different classes using different styles. 
+    users* : Option[seq[string]] ## Grants specific users access to specific menu entries.
+    unrestricted* : Option[bool] ## Grants all users access to specific menu entries.
+    hotkey* : string             ## May be a single letter, or one of the aliases 'backspace', 'tab', or 'delete'.
+    id* : string                 ## String of ASCII aphanumeric characters, underscore and hyphen and should not start with a digit.
+    title* : string              ## Menu entry's title.
+  MenuEntry * = ref object of MenuComponent
+    commands* : seq[Command]     ## Menu entry's body containing Menu/CLI commands.
+  SubMenu * = ref object of MenuComponent
+    menuEntries*: seq[MenuEntry] ## Submenu's menu entries.
+
   Menu * = ref object
-    menuentry* : string ## menuentry title [--class=class …] [--users=users] [--unrestricted] [--hotkey=key] [--id=id] [arg …] { command; … }
+    menuentry* : seq[MenuEntry] ## menuentry title [--class=class …] [--users=users] [--unrestricted] [--hotkey=key] [--id=id] [arg …] { command; … }
       ## This defines a GRUB menu entry named title.
       ## When this entry is selected from the menu,
       ## GRUB will set the chosen environment variable to
@@ -39,7 +57,7 @@ type
       ## All other arguments including title are passed as
       ## positional parameters when list of commands is
       ## executed with title always assigned to $1.
-    submenu* : string ## submenu title [--class=class …] [--users=users] [--unrestricted] [--hotkey=key] [--id=id] { menu entries … }
+    submenu* : seq[SubMenu] ## submenu title [--class=class …] [--users=users] [--unrestricted] [--hotkey=key] [--id=id] { menu entries … }
       ## This defines a submenu.
       ## An entry called title will be added to the menu;
       ## when that entry is selected, a
