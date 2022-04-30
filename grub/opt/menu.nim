@@ -24,8 +24,8 @@ type
     class* : Option[seq[string]] ## May be used any number of times to group menu entries into classes. Menu themes may display different classes using different styles. 
     users* : Option[seq[string]] ## Grants specific users access to specific menu entries.
     unrestricted* : Option[bool] ## Grants all users access to specific menu entries.
-    hotkey* : string             ## May be a single letter, or one of the aliases 'backspace', 'tab', or 'delete'.
-    id* : string                 ## String of ASCII aphanumeric characters, underscore and hyphen and should not start with a digit.
+    hotkey* : Option[string]     ## May be a single letter, or one of the aliases 'backspace', 'tab', or 'delete'.
+    id* : Option[string]         ## String of ASCII aphanumeric characters, underscore and hyphen and should not start with a digit.
     title* : string              ## Menu entry's title.
   MenuEntry * = ref object of MenuComponent
     commands* : seq[Command]     ## Menu entry's body containing Menu/CLI commands.
